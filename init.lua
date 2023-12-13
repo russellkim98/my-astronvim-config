@@ -69,12 +69,6 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        client.server_capabilities.semanticTokensProvider = nil
-      end,
-    })
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {
@@ -91,6 +85,14 @@ return {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         client.server_capabilities.semanticTokensProvider = nil
+      end,
+    })
+    -- command to extend add a justMyCode key to the python configuration lua table for "dap"
+    vim.api.nvim_create_autocmd("BufEnter", {
+      callback = function()
+        local dap = require "dap"
+        local config = vim.tbl_deep_extend("force", { { justMyCode = false } }, require("dap").configurations.python)
+        dap.configurations.python = config
       end,
     })
   end,
