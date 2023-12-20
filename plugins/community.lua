@@ -19,7 +19,7 @@ return {
     },
   },
   { import = "astrocommunity.markdown-and-latex.vimtex" },
-  { import = "astrocommunity.completion.codeium-vim" },
+  { import = "astrocommunity.completion.codeium-vim", enabled = false },
   { import = "astrocommunity.color.transparent-nvim" },
   { import = "astrocommunity.color.tint-nvim" },
 
